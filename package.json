@@ -1,0 +1,22 @@
+{
+  "name": "tupaia-testing",
+  "version": "1.0.0",
+  "description": "testing Tupaia Application using Headless Chrome, Puppeteer and Jest",
+  "main": "index.js",
+  "jest": {
+    "preset": "jest-puppeteer"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Bindu",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "jest-puppeteer": "^4.3.0",
+    "puppeteer": "^2.0.0"
+  }
+}

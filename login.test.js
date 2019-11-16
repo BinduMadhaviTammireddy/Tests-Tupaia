@@ -4,6 +4,7 @@ let page;
 let browser;
 const width = 1500;
 const height = 1000;
+jest.setTimeout(60000);
 describe('Login Functionality Testing', () => {
     beforeAll(async () => {
         browser = await puppeteer.launch({
@@ -13,26 +14,22 @@ describe('Login Functionality Testing', () => {
         });
         page = await browser.newPage();
         await page.setViewport({ width, height });
-        // read url from env file
         await page.goto(process.env.Dev_URL);
     });
       
   
-    it('Login and Logout', async () => {
-        jest.setTimeout(15000);
-        await page.mouse.click(0, 100);
-        await page.waitFor(3000);
-      // click on login using selector.
-      await page.click('#root > div > div.sc-bdVaJa.bFlryC > div:nth-child(1) > div:nth-child(3) > div > div:nth-child(1) > button:nth-child(1) > span.MuiButton-label');
-        await page.waitFor(1000);
-    // input username
-  
-    await page.$eval('input[type=password]', el => el.value = 'test1234');
- 
-     // click on submit button
-    await page.click('button', { text: 'Submit' });
-    await page.waitFor(3000);
-    });
+    it('requirement tab ', async () => {
+        await page.click('body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollPaper > div > div > svg')
+        await page.$eval('button[class="MuiButtonBase-root MuiButton-root MuiButton-text"]', elem => elem.click());
+        await page.waitForSelector('div[class="MuiDialogContent-root"] input[type="text"]');
+        await page.type('div[class="MuiDialogContent-root"] input[type="text"]',process.env.User1_Username);
+        await page.waitForSelector('input[type=password]');
+        await page.type('input[type=password]',process.env.User1_Password);
+        await page.waitForSelector('div[class="MuiDialogContent-root"] button[type="button"]');
+        await page.click('div[class="MuiDialogContent-root"] button[type="button"]');
+        await page.waitFor(2000);
+       await expect(page).toMatch('Bindu madhavi tammireddy');
+        });
     afterAll(() => {
         browser.close();
     });
